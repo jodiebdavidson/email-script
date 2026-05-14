@@ -2,35 +2,30 @@ import smtplib
 from email.message import EmailMessage
 
 def send_notification(visitor_name, visitor_email):
-    # 1. Setup your email details
     msg = EmailMessage()
-    
-    # Updated message to include the visitor's email address
     msg.set_content(f"{visitor_name} ({visitor_email}) looked at your script.")
     
     msg['Subject'] = 'New Portfolio Interaction'
-    msg['From'] = "jodiebdavidson@gmail.com"  # Your "sender" email
-    msg['To'] = "jodiebdavidson@gmail.com"    # Your recipient email
+    
+    # SENDER: Put in your email here
+    msg['From'] = "YOUR_DEV_EMAIL@gmail.com" 
+    
+    # RECIPIENT: The random/secondary address you provided
+    msg['To'] = "crystalforest6@gmail.com" 
 
-    # 2. Connect to the mail server
     try:
         server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()  # Secure the connection
+        server.starttls()
         
-        # IMPORTANT: Use a Google "App Password" here, not your regular login password
-        server.login("jodiebdavidson@gmail.com", "your_app_password_here")
+        # You still need an App Password for whichever account is the SENDER
+        server.login("YOUR_DEV_EMAIL@gmail.com", "your_app_password_here")
         
         server.send_message(msg)
         server.quit()
-        print("Success: Notification sent!")
+        print("Success: Email sent to crystalforest6@gmail.com")
     except Exception as e:
-        print(f"Error: Could not send email. {e}")
+        print(f"Error: {e}")
 
-# 3. Ask the user for their details
-name = input("Enter your first name: ")
-email = input("Enter your email address: ")
-
-print(f"Hello, {name}!")
-
-# 4. Execute the notification
+name = input("Enter name: ")
+email = input("Enter email: ")
 send_notification(name, email)
