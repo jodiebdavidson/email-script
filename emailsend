@@ -17,7 +17,7 @@ def send_notification(visitor_name, visitor_email):
         server.starttls()
         
         # Replace these with the credentials from your Mailtrap "SMTP Settings" tab
-        server.login("PASTE_YOUR_MAILTRAP_USERNAME", "PASTE_YOUR_MAILTRAP_PASSWORD")
+        server.login("b987c5c0f8ebb4", "639253c7bde7bd")
         
         server.send_message(msg)
         server.quit()
