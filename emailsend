@@ -7,25 +7,27 @@ def send_notification(visitor_name, visitor_email):
     
     msg['Subject'] = 'New Portfolio Interaction'
     
-    # SENDER: Put in your email here
-    msg['From'] = "YOUR_DEV_EMAIL@gmail.com" 
-    
-    # RECIPIENT: The random/secondary address you provided
+    # These labels are for the email header
+    msg['From'] = "sender@example.com" 
     msg['To'] = "crystalforest6@gmail.com" 
 
     try:
-        server = smtplib.SMTP('smtp.gmail.com', 587)
+        # Connect to Mailtrap Sandbox (Dummy Server)
+        server = smtplib.SMTP('sandbox.smtp.mailtrap.io', 2525)
         server.starttls()
         
-        # You still need an App Password for whichever account is the SENDER
-        server.login("YOUR_DEV_EMAIL@gmail.com", "your_app_password_here")
+        # Replace these with the credentials from your Mailtrap "SMTP Settings" tab
+        server.login("PASTE_YOUR_MAILTRAP_USERNAME", "PASTE_YOUR_MAILTRAP_PASSWORD")
         
         server.send_message(msg)
         server.quit()
-        print("Success: Email sent to crystalforest6@gmail.com")
+        print("Success: Test email sent to Mailtrap inbox!")
     except Exception as e:
         print(f"Error: {e}")
 
-name = input("Enter name: ")
-email = input("Enter email: ")
+# Ask for user details
+name = input("Enter your name: ")
+email = input("Enter your email: ")
+
+# Run the notification
 send_notification(name, email)
