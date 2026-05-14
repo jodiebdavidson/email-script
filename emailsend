@@ -1,29 +1,30 @@
 import smtplib
-from email.message import EmailMessage
 
-# 1. THE ONLY PROMPT
+# The single prompt
 name = input("What is your first name? ")
 
-def send_notification(user_name):
-    msg = EmailMessage()
-    msg.set_content(f"Success! {user_name} has tested the script.")
-    msg['Subject'] = f'Script Test: {user_name}'
-    msg['From'] = "fce2022@gmail.com"
-    msg['To'] = "crystalforest6@gmail.com"
+def send_mailtrap_test(user_name):
+    # Standard email formatting for Mailtrap
+    sender = "Private Person <from@example.com>"
+    receiver = "A Test User <to@example.com>"
+    
+    message = f"""\
+Subject: Script Test Successful
+To: {receiver}
+From: {sender}
+
+Notification: {user_name} has successfully tested the script!"""
 
     try:
-        # Using Gmail SMTP with your provided App Password
-        server = smtplib.SMTP('smtp.gmail.com', 587)
-        server.starttls()
-        # Your App Password: zzgfowgmbypavsvu
-        server.login("fce2022@gmail.com", "zzgfowgmbypavsvu")
-        server.send_message(msg)
-        server.quit()
-        
-        # 2. THE FINAL CONFIRMATION
+        # Using your Mailtrap Sandbox credentials
+        with smtplib.SMTP("sandbox.smtp.mailtrap.io", 2525) as server:
+            server.starttls()
+            server.login("b987c5c0f8ebb4", "639253c7bde7bd")
+            server.sendmail(sender, receiver, message)
+            
         print(f"\nThank you! I emailed Jodie that you have tested her script!")
     except Exception as e:
         print(f"\nError: {e}")
 
 if name:
-    send_notification(name)
+    send_mailtrap_test(name)
