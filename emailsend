@@ -1,33 +1,29 @@
 import smtplib
 from email.message import EmailMessage
 
-def send_notification(visitor_name, visitor_email):
+# 1. THE ONLY PROMPT
+name = input("What is your first name? ")
+
+def send_notification(user_name):
     msg = EmailMessage()
-    msg.set_content(f"{visitor_name} ({visitor_email}) looked at your script.")
-    
-    msg['Subject'] = 'New Portfolio Interaction'
-    
-    # These labels are for the email header
-    msg['From'] = "sender@example.com" 
-    msg['To'] = "crystalforest6@gmail.com" 
+    msg.set_content(f"Success! {user_name} has tested the script.")
+    msg['Subject'] = f'Script Test: {user_name}'
+    msg['From'] = "fce2022@gmail.com"
+    msg['To'] = "crystalforest6@gmail.com"
 
     try:
-        # Connect to Mailtrap Sandbox (Dummy Server)
-        server = smtplib.SMTP('sandbox.smtp.mailtrap.io', 2525)
+        # Using Gmail SMTP with your provided App Password
+        server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        
-        # Replace these with the credentials from your Mailtrap "SMTP Settings" tab
-        server.login("b987c5c0f8ebb4", "639253c7bde7bd")
-        
+        # Your App Password: zzgfowgmbypavsvu
+        server.login("fce2022@gmail.com", "zzgfowgmbypavsvu")
         server.send_message(msg)
         server.quit()
-        print("Success: Test email sent to Mailtrap inbox!")
+        
+        # 2. THE FINAL CONFIRMATION
+        print(f"\nThank you! I emailed Jodie that you have tested her script!")
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"\nError: {e}")
 
-# Ask for user details
-name = input("Enter your name: ")
-email = input("Enter your email: ")
-
-# Run the notification
-send_notification(name, email)
+if name:
+    send_notification(name)
